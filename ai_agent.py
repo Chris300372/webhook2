@@ -1,10 +1,7 @@
 import os
 from openai import OpenAI
 
-# Inicializamos el cliente OpenAI con el nuevo SDK
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
-# Cargar la base de conocimiento desde un archivo
+# Cargar la base de conocimiento desde archivo
 def load_knowledge_base():
     try:
         with open("base_conocimiento.txt", "r", encoding="utf-8") as f:
@@ -16,17 +13,27 @@ def load_knowledge_base():
 BASE_CONOCIMIENTO = load_knowledge_base()
 
 
-def generate_ai_response(user_message):
+def ai_answer(user_message):
     """
-    Genera la respuesta del agente IA usando ChatGPT
+    Genera una respuesta usando ChatGPT y la base de conocimiento.
     """
 
     try:
-        prompt = f"""
-Eres un asistente inteligente de un hotel de lujo 4 y 5 estrellas.
-Usa la siguiente base de conocimiento para responder únicamente con información real.
+        # 🔥 CLIENTE INICIALIZADO DENTRO DE LA FUNCIÓN
+        # Esto evita errores de Railway cuando no ha cargado todavía las variables.
+        api_key = os.getenv("OPENAI_API_KEY")
 
-Base de Conocimiento:
+        if not api_key:
+            print("❌ ERROR: OPENAI_API_KEY no está definido en Railway")
+            return "Error interno: falta la clave de API."
+
+        client = OpenAI(api_key=api_key)
+
+        prompt = f"""
+Eres un asistente inteligente de un hotel 4 y 5 estrellas.
+Usa únicamente la información de la base de conocimiento.
+
+BASE DE CONOCIMIENTO:
 ---------------------
 {BASE_CONOCIMIENTO}
 ---------------------
@@ -34,30 +41,20 @@ Base de Conocimiento:
 Usuario: {user_message}
 
 Instrucciones:
-- Sé claro, amable y profesional.
-- Si el usuario hace una pregunta fuera del contexto del hotel,
-  responde brevemente y regresa al contexto del hotel.
-- Si algo no está en la base de conocimiento, admite que no está disponible.
+- Responde como asistente del hotel, en tono amable y profesional.
+- Si no existe la información en la base, dilo claramente.
 """
 
         response = client.chat.completions.create(
-            model="gpt-4o-mini",  # Modelo eficiente y económico
+            model="gpt-4o-mini",
             messages=[
-                {"role": "system", "content": "Eres un asistente experto en atención al cliente de un hotel."},
+                {"role": "system", "content": "Eres un asistente de un hotel de lujo."},
                 {"role": "user", "content": prompt}
             ]
         )
 
-        # Extraemos el texto de la respuesta
-        answer = response.choices[0].message.content
-        return answer
+        return response.choices[0].message.content
 
     except Exception as e:
         print("Error generando respuesta:", e)
-        return "Lo siento, hubo un error interno generando la respuesta."
-
-
-if __name__ == "__main__":
-    # Prueba local
-    msg = input("Escribe un mensaje: ")
-    print(generate_ai_response(msg))
+        return "Lo siento, hubo un problema generando la respuesta."
