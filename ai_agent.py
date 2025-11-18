@@ -4,7 +4,7 @@ from openai import OpenAI
 # Cargar la base de conocimiento desde archivo
 def load_knowledge_base():
     try:
-        with open("base_conocimiento.txt", "r", encoding="utf-8") as f:
+        with open("knowledge_base.json", "r", encoding="utf-8") as f:
             return f.read()
     except Exception as e:
         print(f"Error cargando base de conocimiento: {e}")
