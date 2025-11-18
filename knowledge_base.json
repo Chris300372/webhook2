@@ -1,0 +1,22 @@
+{
+  "general": "Hotel Mirador & Spa Premium, 4 estrellas superior. Check-in 2pm, check-out 12pm.",
+  "habitaciones": {
+    "superior": "28 m2, cama Queen/Twin, vista ciudad, USD 95.",
+    "deluxe": "32 m2, cama King, vista mar, minibar, USD 145.",
+    "suite_junior": "45 m2, vista 180°, hidromasaje, lounge, USD 210.",
+    "suite_presidencial": "120 m2, jacuzzi, asistente 24/7, USD 480."
+  },
+  "servicios": "Wifi alta velocidad, room service 24/7, desayuno buffet, estacionamiento, lavandería, pet-friendly.",
+  "gastronomia": {
+    "restaurante": "Origen, cocina de autor, 12:30 pm - 11 pm.",
+    "bar": "Horizonte, coctelería premium, 4 pm - 2 am."
+  },
+  "spa": "Spa Oceanum: tratamientos, masajes, sauna. Masajes desde USD 60.",
+  "reservas": "Pago del 30%, cancelación gratis 48h antes. No show = 1 noche.",
+  "traslados": "Aeropuerto → hotel USD 25. Hotel → aeropuerto USD 20.",
+  "eventos": {
+    "coral": "80 personas, USD 250 medio día.",
+    "marina": "160 personas, USD 550 medio día."
+  },
+  "faq": "Desayuno depende de habitación. Spa mayores de 14 años. Pet-friendly."
+}
